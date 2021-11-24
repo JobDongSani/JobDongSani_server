@@ -6,9 +6,16 @@ import com.odds_and_ends.backendv1.exceptions.ChallengeAlreadyParticipateExcepti
 import com.odds_and_ends.backendv1.facade.UserFacade;
 import com.odds_and_ends.backendv1.payload.request.ChallengeRequest;
 import com.odds_and_ends.backendv1.payload.response.ChallengeDetailResponse;
+import com.odds_and_ends.backendv1.payload.response.ChallengeListResponse;
+import com.odds_and_ends.backendv1.payload.response.ChallengeResponse;
 import com.odds_and_ends.backendv1.payload.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -54,6 +61,17 @@ public class ChallengeService {
         return new CommonResponse<>(200, "챌린지 조회에 성공했습니다.", response);
     }
 
+    public CommonResponse<ChallengeListResponse> getChallengeList(Pageable pageable) {
+        Page<Challenge> challenges = challengeRepository.findAllBy(pageable);
+
+        List<ChallengeResponse> responses = challenges.getContent().stream()
+                .map(this::buildChallengeResponse)
+                .collect(Collectors.toList());
+
+        return new CommonResponse<>(200, "조회 성공", new ChallengeListResponse(responses));
+    }
+
+
     private void joinChallenge(Challenge challenge, User user) {
         ChallengeUser challengeUser = ChallengeUser.builder()
                 .challenge(challenge)
@@ -86,6 +104,17 @@ public class ChallengeService {
     private Challenge getChallenge(Long challengeId) {
         return challengeRepository.findById(challengeId)
                 .orElseThrow(ChallengeAlreadyParticipateException::new);
+    }
+
+    private ChallengeResponse buildChallengeResponse(Challenge challenge) {
+        return ChallengeResponse.builder()
+                .content(challenge.getContent())
+                .name(challenge.getContent())
+                .memberCount(challenge.getChallengeUserList().size())
+                .id(challenge.getId())
+                .endDate(challenge.getEndDate())
+                .startDate(challenge.getStartDate())
+                .build();
     }
 
 }
