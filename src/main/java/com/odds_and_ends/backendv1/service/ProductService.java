@@ -17,4 +17,9 @@ public class ProductService {
         Product savedProduct = productRepository.save(productDto.toEntity());
         return new CommonResponse<>(201, "성공하셨습니다.", savedProduct.getId());
     }
+
+    public CommonResponse<ProductDto> findProduct(String barcode){
+        Product savedProduct = productRepository.findByBarcode(barcode).orElseThrow();
+        return new CommonResponse<>(200, "성공하셨습니다.", ProductDto.of(savedProduct));
+    }
 }

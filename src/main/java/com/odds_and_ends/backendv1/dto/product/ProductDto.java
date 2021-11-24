@@ -18,4 +18,8 @@ public class ProductDto {
                 .waste_type(this.wasteType)
                 .build();
     }
+
+    public static ProductDto of(Product product){
+        return new ProductDto(product.getBarcode(), product.getWaste_type());
+    }
 }
