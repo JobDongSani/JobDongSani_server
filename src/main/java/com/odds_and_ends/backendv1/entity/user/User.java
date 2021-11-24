@@ -1,8 +1,10 @@
 package com.odds_and_ends.backendv1.entity.user;
 
+import com.odds_and_ends.backendv1.entity.challenge.ChallengeUser;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,5 +27,8 @@ public class User {
 
     @Column(name = "phone_number")
     private String phoneNumber;
+
+    @OneToMany(mappedBy = "user")
+    private List<ChallengeUser> users;
 
 }
