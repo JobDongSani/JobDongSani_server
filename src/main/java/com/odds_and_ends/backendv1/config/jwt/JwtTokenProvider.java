@@ -1,6 +1,7 @@
 package com.odds_and_ends.backendv1.config.jwt;
 
 import com.odds_and_ends.backendv1.config.authentication.AuthDetailsService;
+import com.odds_and_ends.backendv1.payload.response.AuthResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -25,7 +26,14 @@ public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    public String generateToken(String userId) {
+
+    public AuthResponse getToken(String userId) {
+        return AuthResponse.builder()
+                .accessToken(generateToken(userId))
+                .build();
+    }
+
+    private String generateToken(String userId) {
         return Jwts.builder()
                 .setSubject(userId)
                 .setIssuedAt(new Date())
