@@ -52,3 +52,6 @@ spring:
     url: jdbc:h2:mem:odds_and_ends
     driver-class-name: org.h2.Driver
     username: sa
+
+jwt:
+  secret: ${SECRET}
