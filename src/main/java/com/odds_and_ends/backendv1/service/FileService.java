@@ -16,7 +16,7 @@ public class FileService {
     private final S3Util s3Util;
 
     public CommonResponse<FileResponse> saveFile(MultipartFile file) throws IOException {
-        return new CommonResponse<>(200, "회원가입 성공", new FileResponse(s3Util.upload(file, "images/")));
+        return new CommonResponse<>(200, "파일 업로드 성공", new FileResponse(s3Util.upload(file, "images/")));
     }
 
 }

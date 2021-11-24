@@ -28,6 +28,6 @@ public class AuthService {
             throw new PasswordNotMatchException();
         }
 
-        return new CommonResponse<>(200, "회원가입 성공", jwtTokenProvider.getToken(user.getId().toString()));
+        return new CommonResponse<>(200, "로그인 성공", jwtTokenProvider.getToken(user.getId().toString()));
     }
 }
