@@ -1,9 +1,10 @@
 package com.odds_and_ends.backendv1.config.jwt;
 
 import com.odds_and_ends.backendv1.config.authentication.AuthDetailsService;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.odds_and_ends.backendv1.config.jwt.exception.JwtTokenExpiredException;
+import com.odds_and_ends.backendv1.config.jwt.exception.JwtTokenValidateFailedException;
+import com.odds_and_ends.backendv1.payload.response.AuthResponse;
+import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,7 +26,14 @@ public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    public String generateToken(String userId) {
+
+    public AuthResponse getToken(String userId) {
+        return AuthResponse.builder()
+                .accessToken(generateToken(userId))
+                .build();
+    }
+
+    private String generateToken(String userId) {
         return Jwts.builder()
                 .setSubject(userId)
                 .setIssuedAt(new Date())
@@ -41,14 +49,20 @@ public class JwtTokenProvider {
 
     public String parseToken(HttpServletRequest request) {
         String token = request.getHeader(AUTH_HEADER_NAME);
-        if(token.startsWith(TOKEN_PREFIX)) {
+        if(token != null && token.startsWith(TOKEN_PREFIX)) {
             return token.replace(TOKEN_PREFIX, "");
         }
         return null;
     }
 
     private Claims getTokenBody(String token) {
-        return Jwts.parser().setSigningKey(secretKey)
-                .parseClaimsJws(token).getBody();
+        try {
+            return Jwts.parser().setSigningKey(secretKey)
+                    .parseClaimsJws(token).getBody();
+        } catch (ExpiredJwtException e) {
+            throw new JwtTokenExpiredException();
+        } catch (JwtException e) {
+            throw new JwtTokenValidateFailedException();
+        }
     }
 }

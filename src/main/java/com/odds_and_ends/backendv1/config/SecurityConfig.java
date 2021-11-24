@@ -1,5 +1,6 @@
 package com.odds_and_ends.backendv1.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.odds_and_ends.backendv1.config.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -18,11 +19,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] SWAGGER_WHITELIST = {
             "/swagger-resources/**",
-            "/swagger-ui.html",
-            "/v2/api-docs",
-            "/webjars/**"
+            "/swagger-ui/index.hml",
+            "/v3/api-docs",
+            "/webjars/**",
     };
     private final JwtTokenProvider jwtTokenProvider;
+    private final ObjectMapper objectMapper;
 
     @Override
     public void configure(HttpSecurity security) throws Exception {
@@ -36,9 +38,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/signup").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers(SWAGGER_WHITELIST).permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/v3/api-docs").permitAll()
+                .antMatchers("/configuration/ui").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/configuration/security").permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/swagger-ui/*").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .anyRequest().permitAll()
                 .and()
-                .apply(new FilterConfig(jwtTokenProvider));
+                .apply(new FilterConfig(jwtTokenProvider, objectMapper));
     }
 
     @Bean
