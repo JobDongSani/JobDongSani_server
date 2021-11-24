@@ -1,0 +1,29 @@
+package com.odds_and_ends.backendv1.entity.user;
+
+import lombok.*;
+
+import javax.persistence.*;
+
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
+@Entity
+public class User {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String username;
+
+    private String password;
+
+    @Column(name = "profile_image")
+    private String profileImage;
+
+    private String name;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+}
