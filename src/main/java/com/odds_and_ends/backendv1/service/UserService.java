@@ -3,6 +3,7 @@ package com.odds_and_ends.backendv1.service;
 import com.odds_and_ends.backendv1.dto.user.SignupVo;
 import com.odds_and_ends.backendv1.entity.user.User;
 import com.odds_and_ends.backendv1.entity.user.UserRepository;
+import com.odds_and_ends.backendv1.exceptions.ExistUsernameException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class UserService {
     public User signup(SignupVo signupVo) throws IOException {
 //        String savedFilePath = saveFile(signupVo.getUserImage());
         if(userRepository.existsByUsername(signupVo.getUsername()))
-            throw new RuntimeException(); //TODO username중복 Exception
+            throw new ExistUsernameException();
 
         return userRepository.save(signupVo.toEntity());
     }
