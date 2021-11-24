@@ -1,8 +1,8 @@
 package com.odds_and_ends.backendv1.service;
 
 import com.odds_and_ends.backendv1.config.jwt.JwtTokenProvider;
-import com.odds_and_ends.backendv1.entity.exceptions.PasswordNotMatchException;
-import com.odds_and_ends.backendv1.entity.exceptions.UserNotFoundException;
+import com.odds_and_ends.backendv1.exceptions.PasswordNotMatchException;
+import com.odds_and_ends.backendv1.exceptions.UserNotFoundException;
 import com.odds_and_ends.backendv1.entity.user.User;
 import com.odds_and_ends.backendv1.entity.user.UserRepository;
 import com.odds_and_ends.backendv1.payload.request.AuthRequest;

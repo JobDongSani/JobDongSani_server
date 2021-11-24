@@ -1,4 +1,4 @@
-package com.odds_and_ends.backendv1.entity.exceptions;
+package com.odds_and_ends.backendv1.exceptions;
 
 import com.odds_and_ends.backendv1.config.exception.GlobalException;
 
