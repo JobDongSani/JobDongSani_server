@@ -1,5 +1,6 @@
 package com.odds_and_ends.backendv1.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.odds_and_ends.backendv1.config.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**",
     };
     private final JwtTokenProvider jwtTokenProvider;
+    private final ObjectMapper objectMapper;
 
     @Override
     public void configure(HttpSecurity security) throws Exception {
@@ -45,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
-                .apply(new FilterConfig(jwtTokenProvider));
+                .apply(new FilterConfig(jwtTokenProvider, objectMapper));
     }
 
     @Bean
