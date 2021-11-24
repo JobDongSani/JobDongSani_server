@@ -20,6 +20,6 @@ public class UserController {
     @GetMapping("/signup")
     private String signup(@RequestBody SignupVo signupVo) throws IOException {
         userService.signup(signupVo);
-        return "로그인 완료";
+        return "회원가입 완료";
     }
 }
