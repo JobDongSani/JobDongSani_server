@@ -15,11 +15,11 @@ public class ProductDto {
     public Product toEntity(){
         return Product.builder()
                 .barcode(this.barcode)
-                .waste_type(this.wasteType)
+                .wasteType(this.wasteType)
                 .build();
     }
 
     public static ProductDto of(Product product){
-        return new ProductDto(product.getBarcode(), product.getWaste_type());
+        return new ProductDto(product.getBarcode(), product.getWasteType());
     }
 }

@@ -16,7 +16,7 @@ public class Product {
     private Long id;
 
     @Column(name = "waste_type")
-    private String waste_type;
+    private String wasteType;
 
     @Column(name = "product_barcode")
     private String barcode;
