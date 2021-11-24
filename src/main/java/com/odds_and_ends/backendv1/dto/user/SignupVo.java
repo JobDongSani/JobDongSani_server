@@ -13,33 +13,25 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 public class SignupVo {
 
-    private MultipartFile userImage;
-    private UserInfo userInfo;
+    @JsonProperty(namespace = "username")
+    private String username;
+    @JsonProperty(namespace = "password")
+    private String password;
+    @JsonProperty(namespace = "name")
+    private String name;
+    @JsonProperty(namespace = "phoneNumber")
+    private String phoneNumber;
 
-    @JsonIgnore
-    @Setter
-    private String userImageFilePath;
+//    private MultipartFile userImage;
+//    private UserInfo userInfo;
 
     public User toEntity(){
         return User.builder()
-                .username(userInfo.username)
-                .password(userInfo.password)
-                .name(userInfo.name)
-                .phoneNumber(userInfo.phoneNumber)
-                .profileImage(userImageFilePath)
+                .username(username)
+                .password(password)
+                .name(name)
+                .phoneNumber(phoneNumber)
                 .build();
     }
 
-    @NoArgsConstructor @AllArgsConstructor
-    @Getter
-    static class UserInfo {
-        @JsonProperty(namespace = "username")
-        private String username;
-        @JsonProperty(namespace = "password")
-        private String password;
-        @JsonProperty(namespace = "name")
-        private String name;
-        @JsonProperty(namespace = "phoneNumber")
-        private String phoneNumber;
-    }
 }
