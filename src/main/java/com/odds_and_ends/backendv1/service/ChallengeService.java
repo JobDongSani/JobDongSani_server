@@ -105,8 +105,8 @@ public class ChallengeService {
         return Challenge.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
-                .endDate(request.getEndAt())
-                .startDate(request.getStartAt())
+                .endDate(request.getEndDate())
+                .startDate(request.getStartDate())
                 .build();
     }
 
@@ -116,13 +116,18 @@ public class ChallengeService {
     }
 
     private ChallengeResponse buildChallengeResponse(Challenge challenge) {
+        User user = userFacade.getCurrentUser();
+
         return ChallengeResponse.builder()
                 .content(challenge.getContent())
-                .name(challenge.getContent())
+                .name(user.getName())
                 .memberCount(challenge.getChallengeUserList().size())
                 .id(challenge.getId())
                 .endDate(challenge.getEndDate())
                 .startDate(challenge.getStartDate())
+                .username(user.getUsername())
+                .profileImage(user.getProfileImage())
+                .title(challenge.getTitle())
                 .build();
     }
 
