@@ -24,5 +24,9 @@ public class ChallengeController {
         return challengeService.saveChallenge(request);
     }
 
+    @DeleteMapping("/{id}")
+    public CommonResponse<String> deleteChallenge(@PathVariable Long id) {
+        return challengeService.deleteChallenge(id);
+    }
 
 }
