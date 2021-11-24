@@ -10,7 +10,6 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController
-
 public class UserController {
 
     private final UserService userService;
