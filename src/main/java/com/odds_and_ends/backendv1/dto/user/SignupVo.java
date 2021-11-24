@@ -5,6 +5,7 @@ import com.odds_and_ends.backendv1.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,6 +15,7 @@ public class SignupVo {
     @JsonProperty(namespace = "username")
     private String username;
     @JsonProperty(namespace = "password")
+    @Setter
     private String password;
     @JsonProperty(namespace = "name")
     private String name;

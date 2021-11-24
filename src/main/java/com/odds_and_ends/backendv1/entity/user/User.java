@@ -29,6 +29,6 @@ public class User {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "user")
-    private List<ChallengeUser> users;
+    private List<ChallengeUser> challengeUserList;
 
 }
