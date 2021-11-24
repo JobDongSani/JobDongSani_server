@@ -1,6 +1,7 @@
 package com.odds_and_ends.backendv1.payload.request;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -12,9 +13,11 @@ public class ChallengeRequest {
 
     private String title;
 
-    private LocalDate startAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
 
-    private LocalDate endAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate endDate;
 
     private String content;
 
