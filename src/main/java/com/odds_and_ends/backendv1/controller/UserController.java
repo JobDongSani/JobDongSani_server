@@ -5,6 +5,7 @@ import com.odds_and_ends.backendv1.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -17,8 +18,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/signup")
-    private String signup(SignupVo signupVo) throws IOException {
+    private String signup(@RequestBody SignupVo signupVo) throws IOException {
         userService.signup(signupVo);
-        return "asdjfaosef";
+        return "로그인 완료";
     }
 }
