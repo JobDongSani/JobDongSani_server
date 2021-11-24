@@ -1,6 +1,7 @@
 package com.odds_and_ends.backendv1.entity.user;
 
-import com.odds_and_ends.backendv1.entity.challenge.ChallengeUser;
+import com.odds_and_ends.backendv1.entity.challenge.Challenge;
+import com.odds_and_ends.backendv1.entity.comment.Comment;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +14,8 @@ import java.util.List;
 @Entity
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
@@ -29,6 +31,9 @@ public class User {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "user")
-    private List<ChallengeUser> challengeUserList;
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "user")
+    private List<Challenge> challenges;
 
 }
