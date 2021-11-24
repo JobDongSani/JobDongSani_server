@@ -5,6 +5,7 @@ import com.odds_and_ends.backendv1.entity.user.User;
 import com.odds_and_ends.backendv1.exceptions.ChallengeAlreadyParticipateException;
 import com.odds_and_ends.backendv1.facade.UserFacade;
 import com.odds_and_ends.backendv1.payload.request.ChallengeRequest;
+import com.odds_and_ends.backendv1.payload.response.ChallengeDetailResponse;
 import com.odds_and_ends.backendv1.payload.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,16 +29,29 @@ public class ChallengeService {
         return new CommonResponse<>(200, "챌린지 생성에 성공했습니다.", "data");
     }
 
-    public CommonResponse<String> deleteChallenge(Long id) {
+    public CommonResponse<String> deleteChallenge(Long challengeId) {
         User currentUser = userFacade.getCurrentUser();
 
-        Challenge challenge = challengeRepository.findById(id)
-                .orElseThrow(ChallengeAlreadyParticipateException::new);
+        Challenge challenge = getChallenge(challengeId);
 
         validateAlreadyParticipated(challenge, currentUser);
         joinChallenge(challenge, currentUser);
 
-        return new CommonResponse<>(200, "챌린지 삭제에 성공했습니다.", id.toString());
+        return new CommonResponse<>(200, "챌린지 삭제에 성공했습니다.", challenge.toString());
+    }
+
+    public CommonResponse<ChallengeDetailResponse> getDetailResponse(Long challengeId) {
+        Challenge challenge = getChallenge(challengeId);
+
+        ChallengeDetailResponse response = ChallengeDetailResponse.builder()
+                .memberCount(challenge.getChallengeUserList().size())
+                .content(challenge.getContent())
+                .endDate(challenge.getEndDate())
+                .startDate(challenge.getStartDate())
+                .title(challenge.getTitle())
+                .build();
+
+        return new CommonResponse<>(200, "챌린지 조회에 성공했습니다.", response);
     }
 
     private void joinChallenge(Challenge challenge, User user) {
@@ -67,6 +81,11 @@ public class ChallengeService {
                 .endDate(request.getEndAt())
                 .startDate(request.getStartAt())
                 .build();
+    }
+
+    private Challenge getChallenge(Long challengeId) {
+        return challengeRepository.findById(challengeId)
+                .orElseThrow(ChallengeAlreadyParticipateException::new);
     }
 
 }
