@@ -71,6 +71,15 @@ public class ChallengeService {
         return new CommonResponse<>(200, "조회 성공", new ChallengeListResponse(responses));
     }
 
+    public CommonResponse<ChallengeListResponse> findChallengesByTitle(String title, Pageable pageable) {
+        Page<Challenge> challenges = challengeRepository.findAllByTitleLike(title, pageable);
+
+        List<ChallengeResponse> responses = challenges.getContent().stream()
+                .map(this::buildChallengeResponse)
+                .collect(Collectors.toList());
+
+        return new CommonResponse<>(200, "조회 성공", new ChallengeListResponse(responses));
+    }
 
     private void joinChallenge(Challenge challenge, User user) {
         ChallengeUser challengeUser = ChallengeUser.builder()
