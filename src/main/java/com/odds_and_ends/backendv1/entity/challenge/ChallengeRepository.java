@@ -5,6 +5,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
-    Page<Challenge> findAllBy(Pageable pageable);
-    Page<Challenge> findAllByTitleLike(String title, Pageable pageable);
+    Page<Challenge> findAllByOrderByCreateDateDesc(Pageable pageable);
+    Page<Challenge> findAllByTitleLikeOrderByCreateDateDesc(String title, Pageable pageable);
 }

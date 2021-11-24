@@ -1,9 +1,13 @@
 package com.odds_and_ends.backendv1.entity.challenge;
 
+import com.odds_and_ends.backendv1.entity.comment.Comment;
+import com.odds_and_ends.backendv1.entity.user.User;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -24,6 +28,13 @@ public class Challenge {
 
     private LocalDate endDate;
 
+    @ManyToOne
+    @JoinColumn(name = "writer")
+    private User user;
+
+    @CreatedDate
+    private LocalDateTime createDate;
+
     @OneToMany(mappedBy = "challenge")
-    private List<ChallengeUser> challengeUserList;
+    private List<Comment> comments;
 }
