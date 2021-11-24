@@ -13,7 +13,7 @@ public class ChallengeResponse {
 
     private Long id;
 
-    private String name;
+    private String title;
 
     private String content;
 
@@ -24,5 +24,11 @@ public class ChallengeResponse {
     private LocalDate endDate;
 
     private int memberCount;
+
+    private String profileImage;
+
+    private String username;
+
+    private String name;
 
 }
