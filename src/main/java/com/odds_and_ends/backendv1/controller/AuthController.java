@@ -2,6 +2,7 @@ package com.odds_and_ends.backendv1.controller;
 
 import com.odds_and_ends.backendv1.payload.request.AuthRequest;
 import com.odds_and_ends.backendv1.payload.response.AuthResponse;
+import com.odds_and_ends.backendv1.payload.response.CommonResponse;
 import com.odds_and_ends.backendv1.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signin")
-    public AuthResponse signIn(@RequestBody AuthRequest request) {
+    public CommonResponse<AuthResponse> signIn(@RequestBody AuthRequest request) {
         return authService.signIn(request);
     }
 }
