@@ -1,6 +1,8 @@
 package com.odds_and_ends.backendv1.service;
 
 import com.odds_and_ends.backendv1.config.jwt.JwtTokenProvider;
+import com.odds_and_ends.backendv1.entity.exceptions.PasswordNotMatchException;
+import com.odds_and_ends.backendv1.entity.exceptions.UserNotFoundException;
 import com.odds_and_ends.backendv1.entity.user.User;
 import com.odds_and_ends.backendv1.entity.user.UserRepository;
 import com.odds_and_ends.backendv1.payload.request.AuthRequest;
@@ -19,10 +21,10 @@ public class AuthService {
 
     public AuthResponse signIn(AuthRequest request) {
         User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(UserNotFoundException::new);
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException();
+            throw new PasswordNotMatchException();
         }
 
         return jwtTokenProvider.getToken(user.getId().toString());

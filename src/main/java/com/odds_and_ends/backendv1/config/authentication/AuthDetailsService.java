@@ -1,5 +1,6 @@
 package com.odds_and_ends.backendv1.config.authentication;
 
+import com.odds_and_ends.backendv1.entity.exceptions.UserNotFoundException;
 import com.odds_and_ends.backendv1.entity.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +18,7 @@ public class AuthDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findById(Long.parseLong(username))
                 .map(AuthDetails::new)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(UserNotFoundException::new);
         // TODO: 2021/11/24 Exception Handler 만들어서 Custom Exception
     }
 }
