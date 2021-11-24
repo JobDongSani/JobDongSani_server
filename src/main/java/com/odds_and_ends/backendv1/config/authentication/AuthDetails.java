@@ -19,12 +19,12 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return user.getId().toString();
     }
 
     @Override
