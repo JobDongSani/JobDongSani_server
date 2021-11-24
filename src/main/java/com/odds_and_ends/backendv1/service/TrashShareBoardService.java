@@ -3,10 +3,12 @@ package com.odds_and_ends.backendv1.service;
 import com.odds_and_ends.backendv1.dto.trash_share_board.TrashShareBoardDto;
 import com.odds_and_ends.backendv1.entity.trash_share_board.TrashShareBoard;
 import com.odds_and_ends.backendv1.entity.trash_share_board.TrashShareBoardRepository;
+import com.odds_and_ends.backendv1.exceptions.TrashNotFoundException;
 import com.odds_and_ends.backendv1.facade.UserFacade;
 import com.odds_and_ends.backendv1.payload.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -17,6 +19,22 @@ public class TrashShareBoardService {
 
     public CommonResponse<Long> save(TrashShareBoardDto trashShareBoardDto){
         TrashShareBoard savedTrashShareBoard = trashShareBoardRepository.save(trashShareBoardDto.toEntity(userFacade.getCurrentUser()));
-        return new CommonResponse<>(201, "쓰래ㅁ기 나눔 게시글이 저장되었습니다.", savedTrashShareBoard.getId());
+        return new CommonResponse<>(201, "쓰래기 나눔 게시글이 저장되었습니다.", savedTrashShareBoard.getId());
     }
+
+    @Transactional
+    public CommonResponse<Long> update(long id, TrashShareBoardDto trashShareBoardDto){
+        TrashShareBoard trashShareBoard = trashShareBoardRepository.findById(id)
+                .orElseThrow(TrashNotFoundException::new);
+        trashShareBoard.update(
+                trashShareBoardDto.getTitle(),
+                trashShareBoardDto.getContents(),
+                trashShareBoardDto.getContact(),
+                trashShareBoardDto.getImagePath()
+        );
+
+        return new CommonResponse<>(200, "쓰래기 나눔 게시글이 수정되었습니다", trashShareBoard.getId());
+    }
+
+
 }

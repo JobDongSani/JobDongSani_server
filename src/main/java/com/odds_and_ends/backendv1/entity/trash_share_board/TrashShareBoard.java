@@ -28,4 +28,11 @@ public class TrashShareBoard {
 
     @Column(name = "image_path")
     private String imagePath;
+
+    public void update(String title, String contents, String contact, String imagePath){
+        this.title = title;
+        this.contents = contact;
+        this.contact = contact;
+        this.imagePath = imagePath;
+    }
 }
