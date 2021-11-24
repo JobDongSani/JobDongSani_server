@@ -21,4 +21,6 @@ public class ChallengeRequest {
 
     private String content;
 
+    private String imageUrl;
+
 }
