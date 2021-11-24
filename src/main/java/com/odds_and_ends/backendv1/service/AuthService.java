@@ -7,6 +7,7 @@ import com.odds_and_ends.backendv1.entity.user.User;
 import com.odds_and_ends.backendv1.entity.user.UserRepository;
 import com.odds_and_ends.backendv1.payload.request.AuthRequest;
 import com.odds_and_ends.backendv1.payload.response.AuthResponse;
+import com.odds_and_ends.backendv1.payload.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthResponse signIn(AuthRequest request) {
+    public CommonResponse<AuthResponse> signIn(AuthRequest request) {
         User user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(UserNotFoundException::new);
 
@@ -27,6 +28,6 @@ public class AuthService {
             throw new PasswordNotMatchException();
         }
 
-        return jwtTokenProvider.getToken(user.getId().toString());
+        return new CommonResponse<>(200, "회원가입 성공", jwtTokenProvider.getToken(user.getId().toString()));
     }
 }

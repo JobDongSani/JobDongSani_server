@@ -1,5 +1,6 @@
 package com.odds_and_ends.backendv1.controller;
 
+import com.odds_and_ends.backendv1.payload.response.CommonResponse;
 import com.odds_and_ends.backendv1.payload.response.FileResponse;
 import com.odds_and_ends.backendv1.service.FileService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class FileController {
     private final FileService fileService;
 
     @PostMapping("/file")
-    public FileResponse uploadFile(@RequestPart MultipartFile file) throws IOException {
+    public CommonResponse<FileResponse> uploadFile(@RequestPart MultipartFile file) throws IOException {
         return fileService.saveFile(file);
     }
 }

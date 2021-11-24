@@ -1,5 +1,6 @@
 package com.odds_and_ends.backendv1.service;
 
+import com.odds_and_ends.backendv1.payload.response.CommonResponse;
 import com.odds_and_ends.backendv1.payload.response.FileResponse;
 import com.odds_and_ends.backendv1.util.S3Util;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +15,8 @@ public class FileService {
 
     private final S3Util s3Util;
 
-    public FileResponse saveFile(MultipartFile file) throws IOException {
-        return new FileResponse(s3Util.upload(file, "images/"));
+    public CommonResponse<FileResponse> saveFile(MultipartFile file) throws IOException {
+        return new CommonResponse<>(200, "회원가입 성공", new FileResponse(s3Util.upload(file, "images/")));
     }
 
 }
