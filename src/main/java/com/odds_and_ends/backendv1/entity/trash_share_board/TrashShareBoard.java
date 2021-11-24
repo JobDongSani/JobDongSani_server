@@ -23,6 +23,8 @@ public class TrashShareBoard {
 
     private String contents;
 
+    private String contact;
+
     @Column(name = "image_path")
     private String imagePath;
 }
