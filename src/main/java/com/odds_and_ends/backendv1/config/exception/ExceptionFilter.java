@@ -28,11 +28,13 @@ public class ExceptionFilter extends OncePerRequestFilter {
             if (throwable instanceof GlobalException exception) {
                 sendExpectedExceptionMessage(response, exception);
             } else {
+                log.error("error 발생", e);
                 sendUnexpectedExceptionMessage(request, response, 500, throwable.getMessage());
             }
         } catch (GlobalException exception) {
             sendExpectedExceptionMessage(response, exception);
         } catch (Exception exception) {
+            log.error("error 발생", exception);
             sendUnexpectedExceptionMessage(request, response, 500, exception.getMessage());
         }
     }
