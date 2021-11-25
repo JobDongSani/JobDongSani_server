@@ -1,7 +1,10 @@
 package com.odds_and_ends.backendv1.entity.trash_share_board;
 
+import com.odds_and_ends.backendv1.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TrashShareBoardRepository extends JpaRepository<TrashShareBoard, Long> {
+import java.util.Optional;
 
+public interface TrashShareBoardRepository extends JpaRepository<TrashShareBoard, Long> {
+    Optional<TrashShareBoard> findByIdAndUser(long id, User user);
 }

@@ -4,6 +4,7 @@ import com.odds_and_ends.backendv1.dto.trash_share_board.TrashShareBoardDto;
 import com.odds_and_ends.backendv1.entity.trash_share_board.TrashShareBoard;
 import com.odds_and_ends.backendv1.entity.trash_share_board.TrashShareBoardRepository;
 import com.odds_and_ends.backendv1.exceptions.TrashNotFoundException;
+import com.odds_and_ends.backendv1.exceptions.TrashShareBoardCanNotDeleteException;
 import com.odds_and_ends.backendv1.facade.UserFacade;
 import com.odds_and_ends.backendv1.payload.response.CommonResponse;
 import lombok.RequiredArgsConstructor;
@@ -55,5 +56,10 @@ public class TrashShareBoardService {
         return new CommonResponse<>(200, "쓰래기 나눔 게시글이 수정되었습니다", trashShareBoard.getId());
     }
 
+    public CommonResponse<Void> delete(long id){
+        TrashShareBoard trashShareBoard = trashShareBoardRepository.findByIdAndUser(id, userFacade.getCurrentUser())
+                .orElseThrow(TrashShareBoardCanNotDeleteException::new);
+        return new CommonResponse<>(200, "해당 쓰래기 나눔 게시글을 삭제 했습니다.", null);
+    }
 
 }
