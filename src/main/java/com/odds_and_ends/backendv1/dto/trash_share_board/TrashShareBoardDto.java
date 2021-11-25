@@ -15,7 +15,7 @@ public class TrashShareBoardDto {
     private String contents;
     private String contact;
     private String imagePath;
-
+    
     private String writer;
 
     public TrashShareBoard toEntity(User user){

@@ -3,6 +3,8 @@ package com.odds_and_ends.backendv1.controller;
 import com.odds_and_ends.backendv1.dto.trash_share_board.TrashShareBoardDto;
 import com.odds_and_ends.backendv1.payload.response.CommonResponse;
 import com.odds_and_ends.backendv1.service.TrashShareBoardService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,11 +23,11 @@ public class TrashShareBoardController {
     }
 
     @GetMapping("/{id}")
-    private CommonResponse<TrashShareBoardDto> findById(@PathVariable("id"), long id){
+    private CommonResponse<TrashShareBoardDto> findById(@PathVariable("id") long id){
         return trashShareBoardService.findById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping()
     private CommonResponse<List<TrashShareBoardDto>> findAll(){
         return trashShareBoardService.findAll();
     }

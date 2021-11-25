@@ -3,6 +3,7 @@ package com.odds_and_ends.backendv1.service;
 import com.odds_and_ends.backendv1.dto.trash_share_board.TrashShareBoardDto;
 import com.odds_and_ends.backendv1.entity.trash_share_board.TrashShareBoard;
 import com.odds_and_ends.backendv1.entity.trash_share_board.TrashShareBoardRepository;
+import com.odds_and_ends.backendv1.exceptions.TrashShareBoardCanNotUpdateException;
 import com.odds_and_ends.backendv1.exceptions.TrashShareBoardNotFoundException;
 import com.odds_and_ends.backendv1.exceptions.TrashShareBoardCanNotDeleteException;
 import com.odds_and_ends.backendv1.facade.UserFacade;
@@ -44,8 +45,8 @@ public class TrashShareBoardService {
 
     @Transactional
     public CommonResponse<Long> update(long id, TrashShareBoardDto trashShareBoardDto){
-        TrashShareBoard trashShareBoard = trashShareBoardRepository.findById(id)
-                .orElseThrow(TrashShareBoardNotFoundException::new);
+        TrashShareBoard trashShareBoard = trashShareBoardRepository.findByIdAndUser(id, userFacade.getCurrentUser())
+                .orElseThrow(TrashShareBoardCanNotUpdateException::new);
         trashShareBoard.update(
                 trashShareBoardDto.getTitle(),
                 trashShareBoardDto.getContents(),

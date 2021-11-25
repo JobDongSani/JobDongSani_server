@@ -30,9 +30,9 @@ public class TrashShareBoard {
     private String imagePath;
 
     public void update(String title, String contents, String contact, String imagePath){
-        this.title = title;
-        this.contents = contact;
-        this.contact = contact;
-        this.imagePath = imagePath;
+        this.title = title != null ? title : this.title;
+        this.contents = contents != null ? contents : this.contents;
+        this.contact = contact != null ? contact : this.contact;
+        this.imagePath = imagePath != null ? imagePath : this.imagePath;
     }
 }
