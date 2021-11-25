@@ -26,6 +26,8 @@ public class TrashShareBoard {
 
     private String contact;
 
+    private String location;
+
     @Column(name = "image_path")
     private String imagePath;
 
