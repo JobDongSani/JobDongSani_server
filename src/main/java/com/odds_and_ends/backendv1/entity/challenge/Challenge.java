@@ -5,6 +5,7 @@ import com.odds_and_ends.backendv1.entity.like.ChallengeLike;
 import com.odds_and_ends.backendv1.entity.user.User;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Challenge {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
