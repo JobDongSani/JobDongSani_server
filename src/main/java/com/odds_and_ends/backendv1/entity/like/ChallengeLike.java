@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class ChallengeLike {
 
     @EmbeddedId
+    @Builder.Default
     private ChallengeLikeId likeId = new ChallengeLikeId();
 
     @MapsId("challengeId")
