@@ -29,7 +29,7 @@ public class CommentService {
                 .orElseThrow(ChallengeNotFoundException::new);
 
         List<CommentResponse> challenges = challenge.getComments().stream()
-                .map(this::buildCommentRepsonse)
+                .map(this::buildCommentResponse)
                 .collect(Collectors.toList());
 
         return new CommonResponse<>(200, "Comment 조회 성공", new CommentListResponse(challenges));
@@ -49,10 +49,11 @@ public class CommentService {
                 .user(userFacade.getCurrentUser())
                 .startDate(request.getStartDate())
                 .challenge(challenge)
+                .imageUrl(request.getImageUrl())
                 .build();
     }
 
-    private CommentResponse buildCommentRepsonse(Comment comment) {
+    private CommentResponse buildCommentResponse(Comment comment) {
         return CommentResponse.builder()
                 .startDate(comment.getStartDate())
                 .imageUrl(comment.getImageUrl())

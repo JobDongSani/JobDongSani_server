@@ -4,6 +4,7 @@ import com.odds_and_ends.backendv1.entity.challenge.Challenge;
 import com.odds_and_ends.backendv1.entity.user.User;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Comment {
 
     @Id
