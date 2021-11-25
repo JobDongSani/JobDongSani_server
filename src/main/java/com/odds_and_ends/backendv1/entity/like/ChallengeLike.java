@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class ChallengeLike {
 
     @EmbeddedId
-    private ChallengeLikeId likeId;
+    private ChallengeLikeId likeId = new ChallengeLikeId();
 
     @MapsId("challengeId")
     @ManyToOne
