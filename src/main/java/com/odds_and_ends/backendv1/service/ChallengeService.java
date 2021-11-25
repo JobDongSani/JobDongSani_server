@@ -60,6 +60,9 @@ public class ChallengeService {
                 .title(challenge.getTitle())
                 .likeCount(challenge.getChallengeLikes().size())
                 .backgroundImage(challenge.getImageUrl())
+                .name(user.getName())
+                .profileImage(user.getProfileImage())
+                .username(user.getUsername())
                 .isLike(challenge.getChallengeLikes().stream().anyMatch(challengeLike -> challengeLike.getUser().equals(user)))
                 .build();
 

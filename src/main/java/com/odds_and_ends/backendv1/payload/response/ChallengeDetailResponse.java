@@ -29,4 +29,10 @@ public class ChallengeDetailResponse {
 
     private Boolean isLike;
 
+    private String profileImage;
+
+    private String username;
+
+    private String name;
+
 }
