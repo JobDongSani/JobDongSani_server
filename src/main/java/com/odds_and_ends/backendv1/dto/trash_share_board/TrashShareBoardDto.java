@@ -11,11 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor @AllArgsConstructor
 public class TrashShareBoardDto {
 
+    private long id;
     private String title;
     private String contents;
     private String contact;
     private String imagePath;
-    
+
     private String writer;
 
     public TrashShareBoard toEntity(User user){
@@ -30,6 +31,7 @@ public class TrashShareBoardDto {
 
     public static TrashShareBoardDto of(TrashShareBoard trashShareBoard){
         return TrashShareBoardDto.builder()
+                .id(trashShareBoard.getId())
                 .writer(trashShareBoard.getUser().getName())
                 .title(trashShareBoard.getTitle())
                 .contents(trashShareBoard.getContents())

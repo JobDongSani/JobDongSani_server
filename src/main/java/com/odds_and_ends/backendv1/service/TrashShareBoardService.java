@@ -36,7 +36,7 @@ public class TrashShareBoardService {
     }
 
     public CommonResponse<List<TrashShareBoardDto>> findAll(){
-        List<TrashShareBoardDto> findAllTrashShareBoard = trashShareBoardRepository.findAll(Sort.by(Sort.Direction.DESC))
+        List<TrashShareBoardDto> findAllTrashShareBoard = trashShareBoardRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))
                 .stream()
                 .map(TrashShareBoardDto::of)
                 .collect(Collectors.toList());

@@ -27,7 +27,7 @@ public class TrashShareBoardController {
         return trashShareBoardService.findById(id);
     }
 
-    @GetMapping()
+    @GetMapping
     private CommonResponse<List<TrashShareBoardDto>> findAll(){
         return trashShareBoardService.findAll();
     }
