@@ -33,6 +33,8 @@ public class Challenge {
 
     private String imageUrl;
 
+    private String introduce;
+
     @ManyToOne
     @JoinColumn(name = "writer")
     private User user;

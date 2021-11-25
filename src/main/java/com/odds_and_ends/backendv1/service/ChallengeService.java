@@ -109,6 +109,7 @@ public class ChallengeService {
                 .startDate(request.getStartDate())
                 .user(user)
                 .imageUrl(request.getImageUrl())
+                .introduce(request.getIntroduce())
                 .build();
     }
 
@@ -121,7 +122,7 @@ public class ChallengeService {
         User user = userFacade.getCurrentUser();
 
         return ChallengeResponse.builder()
-                .content(challenge.getContent())
+                .content(challenge.getIntroduce())
                 .name(user.getName())
                 .memberCount(challenge.getComments().size())
                 .id(challenge.getId())
