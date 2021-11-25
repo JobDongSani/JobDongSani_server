@@ -35,4 +35,6 @@ public class ChallengeResponse {
 
     private String name;
 
+    private Boolean isLike;
+
 }

@@ -27,4 +27,6 @@ public class ChallengeDetailResponse {
 
     private String backgroundImage;
 
+    private Boolean isLike;
+
 }

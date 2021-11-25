@@ -59,6 +59,7 @@ public class ChallengeService {
                 .title(challenge.getTitle())
                 .likeCount(challenge.getChallengeLikes().size())
                 .backgroundImage(challenge.getImageUrl())
+                .isLike(challenge.getChallengeLikes().stream().anyMatch(challengeLike -> challengeLike.getUser().equals(user)))
                 .build();
 
         return new CommonResponse<>(200, "챌린지 조회에 성공했습니다.", response);
@@ -115,6 +116,7 @@ public class ChallengeService {
                 .title(challenge.getTitle())
                 .likeCount(challenge.getChallengeLikes().size())
                 .backgroundImage(challenge.getImageUrl())
+                .isLike(challenge.getChallengeLikes().stream().anyMatch(challengeLike -> challengeLike.getUser().equals(user)))
                 .build();
     }
 
