@@ -58,8 +58,10 @@ public class TrashShareBoardService {
     }
 
     public CommonResponse<Void> delete(long id){
-        TrashShareBoard trashShareBoard = trashShareBoardRepository.findByIdAndUser(id, userFacade.getCurrentUser())
-                .orElseThrow(TrashShareBoardCanNotDeleteException::new);
+        TrashShareBoard findByIdAndUser =
+                trashShareBoardRepository.findByIdAndUser(id, userFacade.getCurrentUser())
+                    .orElseThrow(TrashShareBoardCanNotDeleteException::new);
+        trashShareBoardRepository.delete(findByIdAndUser);
         return new CommonResponse<>(200, "해당 쓰래기 나눔 게시글을 삭제 했습니다.", null);
     }
 
