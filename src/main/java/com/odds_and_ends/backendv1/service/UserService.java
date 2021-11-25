@@ -1,6 +1,6 @@
 package com.odds_and_ends.backendv1.service;
 
-import com.odds_and_ends.backendv1.dto.user.SignupVo;
+import com.odds_and_ends.backendv1.dto.user.UserDto;
 import com.odds_and_ends.backendv1.entity.user.UserRepository;
 import com.odds_and_ends.backendv1.exceptions.ExistUsernameException;
 import com.odds_and_ends.backendv1.payload.response.CommonResponse;
@@ -19,14 +19,16 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public CommonResponse<String> signup(SignupVo signupVo) throws IOException {
-        if (userRepository.existsByUsername(signupVo.getUsername()))
+    public CommonResponse<String> signup(UserDto userDto) throws IOException {
+        if (userRepository.existsByUsername(userDto.getUsername()))
             throw new ExistUsernameException();
 
-        signupVo.setPassword(passwordEncoder.encode(signupVo.getPassword()));
-        userRepository.save(signupVo.toEntity());
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        userRepository.save(userDto.toEntity());
 
         return new CommonResponse<>(200, "회원가입 성공", "data");
     }
+
+    public CommonResponse<UserDto>
 
 }
