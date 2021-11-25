@@ -1,0 +1,60 @@
+package com.odds_and_ends.backendv1.websocket.exception;
+
+import com.corundumstudio.socketio.SocketIOClient;
+import com.corundumstudio.socketio.listener.ExceptionListener;
+import com.odds_and_ends.backendv1.config.exception.ErrorResponse;
+import com.odds_and_ends.backendv1.config.exception.GlobalException;
+import io.netty.channel.ChannelHandlerContext;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Component
+public class SocketExceptionListener implements ExceptionListener {
+
+    @Override
+    public void onEventException(Exception e, List<Object> args, SocketIOClient client) {
+        runExceptionHandling(e, client);
+    }
+
+    @Override
+    public void onDisconnectException(Exception e, SocketIOClient client) {
+        runExceptionHandling(e, client);
+    }
+
+    @Override
+    public void onConnectException(Exception e, SocketIOClient client) {
+        client.disconnect();
+        runExceptionHandling(e, client);
+    }
+
+    @Override
+    public void onPingException(Exception e, SocketIOClient client) {
+        runExceptionHandling(e, client);
+    }
+
+    @Override
+    public boolean exceptionCaught(ChannelHandlerContext ctx, Throwable e) throws Exception {
+        return false;
+    }
+
+    private void runExceptionHandling(Exception e, SocketIOClient client) {
+        final ErrorResponse message;
+
+        if (e.getCause() instanceof GlobalException exception) {
+            message = ErrorResponse.builder()
+                    .message(exception.getMessage())
+                    .status(exception.getStatus())
+                    .build();
+        } else {
+            message = ErrorResponse.builder()
+                    .status(500)
+                    .message(e.getCause().toString())
+                    .build();
+        }
+
+        client.sendEvent("error", message);
+
+    }
+
+}
