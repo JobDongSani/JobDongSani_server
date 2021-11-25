@@ -25,7 +25,11 @@ public class ChallengeResponse {
 
     private int memberCount;
 
+    private int likeCount;
+
     private String profileImage;
+
+    private String backgroundImage;
 
     private String username;
 
