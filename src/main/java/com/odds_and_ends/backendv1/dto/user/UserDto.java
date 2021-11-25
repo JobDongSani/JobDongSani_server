@@ -3,14 +3,11 @@ package com.odds_and_ends.backendv1.dto.user;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.odds_and_ends.backendv1.entity.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
+@Getter @Builder
 public class UserDto {
 
     @JsonProperty(namespace = "username")
@@ -34,6 +31,15 @@ public class UserDto {
                 .name(name)
                 .phoneNumber(phoneNumber)
                 .profileImage(userImage)
+                .build();
+    }
+
+    public static UserDto of(User user){
+        return UserDto.builder()
+                .username(user.getUsername())
+                .name(user.getName())
+                .phoneNumber(user.getPhoneNumber())
+                .userImage(user.getProfileImage())
                 .build();
     }
 
