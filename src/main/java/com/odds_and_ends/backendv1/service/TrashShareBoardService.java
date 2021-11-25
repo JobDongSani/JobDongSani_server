@@ -3,7 +3,7 @@ package com.odds_and_ends.backendv1.service;
 import com.odds_and_ends.backendv1.dto.trash_share_board.TrashShareBoardDto;
 import com.odds_and_ends.backendv1.entity.trash_share_board.TrashShareBoard;
 import com.odds_and_ends.backendv1.entity.trash_share_board.TrashShareBoardRepository;
-import com.odds_and_ends.backendv1.exceptions.TrashNotFoundException;
+import com.odds_and_ends.backendv1.exceptions.TrashShareBoardNotFoundException;
 import com.odds_and_ends.backendv1.exceptions.TrashShareBoardCanNotDeleteException;
 import com.odds_and_ends.backendv1.facade.UserFacade;
 import com.odds_and_ends.backendv1.payload.response.CommonResponse;
@@ -30,7 +30,7 @@ public class TrashShareBoardService {
 
     public CommonResponse<TrashShareBoardDto> findById(long id){
         TrashShareBoard trashShareBoard = trashShareBoardRepository.findById(id)
-                .orElseThrow(TrashNotFoundException::new);
+                .orElseThrow(TrashShareBoardNotFoundException::new);
         return new CommonResponse<>(200, "쓰래기 나눔 게시글 조회가 성공했습니다.", TrashShareBoardDto.of(trashShareBoard));
     }
 
@@ -45,7 +45,7 @@ public class TrashShareBoardService {
     @Transactional
     public CommonResponse<Long> update(long id, TrashShareBoardDto trashShareBoardDto){
         TrashShareBoard trashShareBoard = trashShareBoardRepository.findById(id)
-                .orElseThrow(TrashNotFoundException::new);
+                .orElseThrow(TrashShareBoardNotFoundException::new);
         trashShareBoard.update(
                 trashShareBoardDto.getTitle(),
                 trashShareBoardDto.getContents(),
