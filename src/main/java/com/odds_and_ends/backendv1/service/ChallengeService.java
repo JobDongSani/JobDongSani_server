@@ -76,7 +76,7 @@ public class ChallengeService {
         if(type.equals(FilteringType.NEW)) {
             challenges = challengeRepository.findAllByOrderByCreateDateDesc(pageable);
         } else {
-            challenges = challengeRepository.findAllByTitleContainingOrderByChallengeLikesDesc(pageable);
+            challenges = challengeRepository.findAllByOrderByChallengeLikesDesc(pageable);
         }
 
         List<ChallengeResponse> responses = challenges.getContent().stream()
