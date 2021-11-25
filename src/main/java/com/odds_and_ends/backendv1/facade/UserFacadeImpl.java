@@ -2,7 +2,9 @@ package com.odds_and_ends.backendv1.facade;
 
 import com.odds_and_ends.backendv1.entity.user.User;
 import com.odds_and_ends.backendv1.entity.user.UserRepository;
+import com.odds_and_ends.backendv1.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +16,10 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         if(name == null) {
-            throw new RuntimeException();
+            throw new UserNotFoundException();
         }
         return getUserById(Long.valueOf(name));
     }

@@ -24,6 +24,7 @@ public class ExceptionFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } catch (NestedServletException e) {
             Throwable throwable = e.getCause();
+            e.printStackTrace();
             if (throwable instanceof GlobalException exception) {
                 sendExpectedExceptionMessage(response, exception);
             } else {
