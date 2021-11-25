@@ -24,7 +24,7 @@ public class ChallengeController {
 
     @GetMapping
     public CommonResponse<ChallengeListResponse> getChallengeList(Pageable pageable,
-                                                                  @RequestParam FilteringType type,) {
+                                                                  @RequestParam FilteringType type) {
         return challengeService.getChallengeList(type, pageable);
     }
 
