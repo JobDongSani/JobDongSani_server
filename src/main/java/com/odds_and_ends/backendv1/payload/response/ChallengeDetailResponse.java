@@ -23,4 +23,10 @@ public class ChallengeDetailResponse {
 
     private int memberCount;
 
+    private int likeCount;
+
+    private String backgroundImage;
+
+    private Boolean isLike;
+
 }

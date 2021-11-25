@@ -1,6 +1,7 @@
 package com.odds_and_ends.backendv1.entity.challenge;
 
 import com.odds_and_ends.backendv1.entity.comment.Comment;
+import com.odds_and_ends.backendv1.entity.like.ChallengeLike;
 import com.odds_and_ends.backendv1.entity.user.User;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -28,6 +29,8 @@ public class Challenge {
 
     private LocalDate endDate;
 
+    private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "writer")
     private User user;
@@ -37,4 +40,7 @@ public class Challenge {
 
     @OneToMany(mappedBy = "challenge")
     private List<Comment> comments;
+
+    @OneToMany(mappedBy = "challenge")
+    private List<ChallengeLike> challengeLikes;
 }

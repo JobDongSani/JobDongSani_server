@@ -57,6 +57,9 @@ public class ChallengeService {
                 .endDate(challenge.getEndDate())
                 .startDate(challenge.getStartDate())
                 .title(challenge.getTitle())
+                .likeCount(challenge.getChallengeLikes().size())
+                .backgroundImage(challenge.getImageUrl())
+                .isLike(challenge.getChallengeLikes().stream().anyMatch(challengeLike -> challengeLike.getUser().equals(user)))
                 .build();
 
         return new CommonResponse<>(200, "챌린지 조회에 성공했습니다.", response);
@@ -89,6 +92,7 @@ public class ChallengeService {
                 .endDate(request.getEndDate())
                 .startDate(request.getStartDate())
                 .user(user)
+                .imageUrl(request.getImageUrl())
                 .build();
     }
 
@@ -110,6 +114,9 @@ public class ChallengeService {
                 .username(user.getUsername())
                 .profileImage(user.getProfileImage())
                 .title(challenge.getTitle())
+                .likeCount(challenge.getChallengeLikes().size())
+                .backgroundImage(challenge.getImageUrl())
+                .isLike(challenge.getChallengeLikes().stream().anyMatch(challengeLike -> challengeLike.getUser().equals(user)))
                 .build();
     }
 
