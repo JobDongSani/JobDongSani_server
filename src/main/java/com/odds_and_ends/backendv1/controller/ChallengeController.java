@@ -5,6 +5,7 @@ import com.odds_and_ends.backendv1.payload.response.ChallengeDetailResponse;
 import com.odds_and_ends.backendv1.payload.response.ChallengeListResponse;
 import com.odds_and_ends.backendv1.payload.response.CommonResponse;
 import com.odds_and_ends.backendv1.service.ChallengeService;
+import com.odds_and_ends.backendv1.service.enums.FilteringType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -22,14 +23,16 @@ public class ChallengeController {
     }
 
     @GetMapping
-    public CommonResponse<ChallengeListResponse> getChallengeList(Pageable pageable) {
-        return challengeService.getChallengeList(pageable);
+    public CommonResponse<ChallengeListResponse> getChallengeList(Pageable pageable,
+                                                                  @RequestParam FilteringType type,) {
+        return challengeService.getChallengeList(type, pageable);
     }
 
     @GetMapping("/filter")
     public CommonResponse<ChallengeListResponse> findChallengeByTitle(@RequestParam String title,
-                                                                        Pageable pageable) {
-        return challengeService.findChallengesByTitle(title, pageable);
+                                                                      @RequestParam FilteringType type,
+                                                                      Pageable pageable) {
+        return challengeService.findChallengesByTitle(title, type, pageable);
     }
 
     @PostMapping

@@ -10,6 +10,7 @@ import com.odds_and_ends.backendv1.payload.response.ChallengeDetailResponse;
 import com.odds_and_ends.backendv1.payload.response.ChallengeListResponse;
 import com.odds_and_ends.backendv1.payload.response.ChallengeResponse;
 import com.odds_and_ends.backendv1.payload.response.CommonResponse;
+import com.odds_and_ends.backendv1.service.enums.FilteringType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -69,8 +70,14 @@ public class ChallengeService {
         return new CommonResponse<>(200, "챌린지 조회에 성공했습니다.", response);
     }
 
-    public CommonResponse<ChallengeListResponse> getChallengeList(Pageable pageable) {
-        Page<Challenge> challenges = challengeRepository.findAllByOrderByCreateDateDesc(pageable);
+    public CommonResponse<ChallengeListResponse> getChallengeList(FilteringType type, Pageable pageable) {
+        Page<Challenge> challenges;
+
+        if(type.equals(FilteringType.NEW)) {
+            challenges = challengeRepository.findAllByOrderByCreateDateDesc(pageable);
+        } else {
+            challenges = challengeRepository.findAllByTitleContainingOrderByChallengeLikesDesc(pageable);
+        }
 
         List<ChallengeResponse> responses = challenges.getContent().stream()
                 .map(this::buildChallengeResponse)
@@ -79,8 +86,13 @@ public class ChallengeService {
         return new CommonResponse<>(200, "조회 성공", new ChallengeListResponse(responses));
     }
 
-    public CommonResponse<ChallengeListResponse> findChallengesByTitle(String title, Pageable pageable) {
-        Page<Challenge> challenges = challengeRepository.findAllByTitleLikeOrderByCreateDateDesc(title, pageable);
+    public CommonResponse<ChallengeListResponse> findChallengesByTitle(String title, FilteringType type, Pageable pageable) {
+        Page<Challenge> challenges;
+        if(type.equals(FilteringType.NEW)) {
+            challenges = challengeRepository.findAllByTitleContainingOrderByCreateDateDesc(title, pageable);
+        } else {
+            challenges = challengeRepository.findAllByTitleContainingOrderByChallengeLikesDesc(title, pageable);
+        }
 
         List<ChallengeResponse> responses = challenges.getContent().stream()
                 .map(this::buildChallengeResponse)
