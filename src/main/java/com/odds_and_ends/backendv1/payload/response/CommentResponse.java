@@ -14,6 +14,8 @@ public class CommentResponse {
 
     private String title;
 
+    private String content;
+
     private String imageUrl;
 
     private String name;

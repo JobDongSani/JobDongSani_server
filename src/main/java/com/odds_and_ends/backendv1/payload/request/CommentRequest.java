@@ -14,6 +14,8 @@ public class CommentRequest {
 
     private String title;
 
+    private String content;
+
     private String imageUrl;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

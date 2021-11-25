@@ -32,6 +32,8 @@ public class Comment {
 
     private String title;
 
+    private String content;
+
     private String imageUrl;
 
     @ManyToOne

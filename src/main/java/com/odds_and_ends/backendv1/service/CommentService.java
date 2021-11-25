@@ -50,6 +50,7 @@ public class CommentService {
                 .startDate(request.getStartDate())
                 .challenge(challenge)
                 .imageUrl(request.getImageUrl())
+                .content(request.getContent())
                 .build();
     }
 
@@ -58,6 +59,7 @@ public class CommentService {
                 .startDate(comment.getStartDate())
                 .imageUrl(comment.getImageUrl())
                 .name(comment.getUser().getName())
+                .content(comment.getContent())
                 .profileImage(comment.getUser().getProfileImage())
                 .title(comment.getTitle())
                 .username(comment.getUser().getUsername())
