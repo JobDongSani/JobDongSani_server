@@ -16,12 +16,26 @@ public class TrashShareBoardDto {
     private String contact;
     private String imagePath;
 
+    private String writer;
+
     public TrashShareBoard toEntity(User user){
         return TrashShareBoard.builder()
+                .user(user)
                 .title(this.title)
                 .contents(this.contents)
                 .contact(this.contact)
                 .imagePath(this.imagePath)
                 .build();
+    }
+
+    public static TrashShareBoardDto of(TrashShareBoard trashShareBoard){
+        return TrashShareBoardDto.builder()
+                .writer(trashShareBoard.getUser().getName())
+                .title(trashShareBoard.getTitle())
+                .contents(trashShareBoard.getContents())
+                .contact(trashShareBoard.getContact())
+                .imagePath(trashShareBoard.getImagePath())
+                .build();
+
     }
 }
