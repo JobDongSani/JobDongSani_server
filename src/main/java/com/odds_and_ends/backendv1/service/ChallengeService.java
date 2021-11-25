@@ -50,6 +50,7 @@ public class ChallengeService {
 
     public CommonResponse<ChallengeDetailResponse> getDetailResponse(Long challengeId) {
         Challenge challenge = getChallenge(challengeId);
+        User user = userFacade.getCurrentUser();
 
         ChallengeDetailResponse response = ChallengeDetailResponse.builder()
                 .memberCount(challenge.getComments().size())
