@@ -15,6 +15,7 @@ public class TrashShareBoardDto {
     private String title;
     private String contents;
     private String contact;
+    private String location;
     private String imagePath;
 
     private String writer;
@@ -25,6 +26,7 @@ public class TrashShareBoardDto {
                 .title(this.title)
                 .contents(this.contents)
                 .contact(this.contact)
+                .location(this.location)
                 .imagePath(this.imagePath)
                 .build();
     }
@@ -36,8 +38,8 @@ public class TrashShareBoardDto {
                 .title(trashShareBoard.getTitle())
                 .contents(trashShareBoard.getContents())
                 .contact(trashShareBoard.getContact())
+                .location(trashShareBoard.getLocation())
                 .imagePath(trashShareBoard.getImagePath())
                 .build();
-
     }
 }

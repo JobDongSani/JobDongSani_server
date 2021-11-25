@@ -40,7 +40,7 @@ public class TrashShareBoardService {
                 .stream()
                 .map(TrashShareBoardDto::of)
                 .collect(Collectors.toList());
-        return new CommonResponse<>(200, "쓰래기 나눔 전체 조회가 성공했습니다.", findAllTrashShareBoard);
+        return new CommonResponse<>(200, "쓰래기 나눔 게시글 전체 조회가 성공했습니다.", findAllTrashShareBoard);
     }
 
     @Transactional
